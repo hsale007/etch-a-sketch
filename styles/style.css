@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.columns {
+  flex-grow: 1;
+  display: flex;
+  border: 2px solid green;
+}
+
+.row {
+  border: 2px solid black;
+  flex-grow: 1;
+}
