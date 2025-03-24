@@ -9,7 +9,8 @@ function createGrid(gridSize) {
       const row = document.createElement("div");
       row.className = "row";
       row.addEventListener("mouseover", () => {
-        row.classList.toggle("coloredBox");
+        const color = getSquareColor();
+        row.style.backgroundColor = `rgb(${color})`;
       });
       column.appendChild(row);
     }
@@ -17,10 +18,25 @@ function createGrid(gridSize) {
   }
 }
 
+function randomColor() {
+  return Math.round((Math.random() * 10 * 255) / 10);
+}
+
+function getSquareColor() {
+  const red = randomColor();
+  const green = randomColor();
+  const blue = randomColor();
+  console.log(red);
+  console.log(green);
+  console.log(blue);
+  return [red, green, blue];
+}
+
 function validateUserInput(userInput) {
   userInput = parseInt(userInput);
   return !isNaN(userInput) && userInput > 0 && userInput < 100;
 }
+
 const userInput = document.querySelector("input");
 
 //default grid size
