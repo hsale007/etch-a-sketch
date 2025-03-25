@@ -17,6 +17,8 @@ function createGrid(gridSize) {
           let currOpacity = +row.style.opacity;
           currOpacity = currOpacity === 1 ? 1 : currOpacity + 0.1;
           row.style.opacity = currOpacity;
+        } else {
+          row.style.opacity = 1;
         }
       });
       column.appendChild(row);
@@ -61,11 +63,17 @@ userInput.addEventListener("keyup", (e) => {
 });
 
 const buttons = document.querySelectorAll("button");
-document.querySelector(".red").focus; //default state
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
-    const buttonClass = button.className;
+    const buttonClass = button.classList[0];
+    if (
+      !(
+        button.classList.contains("darken") ||
+        button.classList.contains("reset")
+      )
+    )
+      document.querySelector(".pressed").classList.toggle("pressed");
     switch (buttonClass) {
       case "red":
       case "green":
@@ -79,12 +87,13 @@ buttons.forEach((button) => {
         color = "";
         break;
       case "darken":
-        isDarken = true;
+        isDarken = !isDarken;
         break;
       case "reset":
         createGrid(gridSize);
-        button.blur();
+        button.classList.toggle("pressed");
         break;
     }
+    button.classList.toggle("pressed");
   });
 });

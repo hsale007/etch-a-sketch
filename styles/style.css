@@ -63,13 +63,8 @@ button:active {
   border: 2px solid red;
 }
 
-button[autofocus="true"] {
-  color: red;
-}
-
-button:focus,
-button[autofocus="true"] {
-  border: 2px solid red !important;
+button.pressed {
+  border: 2px solid red;
 }
 
 label {
