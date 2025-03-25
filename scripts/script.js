@@ -1,4 +1,7 @@
 const container = document.querySelector(".container");
+let color = "red"; //default color
+let isDarken = false;
+let gridSize = 16; //default grid size
 
 function createGrid(gridSize) {
   container.replaceChildren();
@@ -9,8 +12,12 @@ function createGrid(gridSize) {
       const row = document.createElement("div");
       row.className = "row";
       row.addEventListener("mouseover", () => {
-        const color = getSquareColor();
-        row.style.backgroundColor = `rgb(${color})`;
+        row.style.backgroundColor = color ? color : `rgb(${getSquareColor()})`;
+        if (isDarken) {
+          let currOpacity = +row.style.opacity;
+          currOpacity = currOpacity === 1 ? 1 : currOpacity + 0.1;
+          row.style.opacity = currOpacity;
+        }
       });
       column.appendChild(row);
     }
@@ -26,9 +33,6 @@ function getSquareColor() {
   const red = randomColor();
   const green = randomColor();
   const blue = randomColor();
-  console.log(red);
-  console.log(green);
-  console.log(blue);
   return [red, green, blue];
 }
 
@@ -39,15 +43,17 @@ function validateUserInput(userInput) {
 
 const userInput = document.querySelector("input");
 
-//default grid size
-userInput.value = 16;
+//default grid
+userInput.value = gridSize;
 createGrid(userInput.value);
 
 userInput.addEventListener("keyup", (e) => {
   console.log(validateUserInput(userInput.value));
-  if (validateUserInput(userInput.value)) {
+  const value = userInput.value;
+  if (validateUserInput(value)) {
     userInput.setCustomValidity("");
-    createGrid(userInput.value);
+    gridSize = value;
+    createGrid(gridSize);
   } else {
     userInput.setCustomValidity("Yo this is wrong");
     container.replaceChildren();
@@ -55,9 +61,30 @@ userInput.addEventListener("keyup", (e) => {
 });
 
 const buttons = document.querySelectorAll("button");
+document.querySelector(".red").focus; //default state
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
-    console.log(button.className);
+    const buttonClass = button.className;
+    switch (buttonClass) {
+      case "red":
+      case "green":
+      case "blue":
+        color = button.className;
+        break;
+      case "eraser":
+        color = "white";
+        break;
+      case "rainbow":
+        color = "";
+        break;
+      case "darken":
+        isDarken = true;
+        break;
+      case "reset":
+        createGrid(gridSize);
+        button.blur();
+        break;
+    }
   });
 });

@@ -25,6 +25,10 @@ body {
   flex-grow: 1;
 }
 
+.row .darker {
+  opacity: 0.1;
+}
+
 .coloredBox {
   background-color: red;
 }
@@ -43,10 +47,29 @@ body {
 
 button {
   padding: 10px;
+  margin-right: 10px;
   background-color: white;
   font-family: "Roboto", sans-serif;
   border: 1px solid black;
   font-weight: 700;
+  transition: 0.4s transform;
+}
+
+button:hover {
+  transform: scale(1.2);
+}
+
+button:active {
+  border: 2px solid red;
+}
+
+button[autofocus="true"] {
+  color: red;
+}
+
+button:focus,
+button[autofocus="true"] {
+  border: 2px solid red !important;
 }
 
 label {
